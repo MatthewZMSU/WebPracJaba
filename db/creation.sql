@@ -14,8 +14,13 @@ CREATE TABLE Department(
     name VARCHAR(50),
     description TEXT,
     director INTEGER REFERENCES Employee(employee_id),
-    internal_departments VARCHAR(50) ARRAY,
-    head_department VARCHAR(50)
+    head_department INTEGER ARRAY
+);
+
+DROP TABLE IF EXISTS Duty CASCADE;
+CREATE TABLE Duty(
+    duty_id SERIAL PRIMARY KEY,
+    description TEXT
 );
 
 DROP TABLE IF EXISTS Position_ CASCADE;
