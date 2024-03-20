@@ -14,7 +14,7 @@ CREATE TABLE Department(
     name VARCHAR(50),
     description TEXT,
     director INTEGER REFERENCES Employee(employee_id),
-    head_department INTEGER ARRAY
+    head_department INTEGER
 );
 
 DROP TABLE IF EXISTS Duty CASCADE;
@@ -54,7 +54,7 @@ CREATE TABLE User_(
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     middle_name VARCHAR(50),
-    role_id INTEGER REFERENCES User_(role_id),
+    role_id INTEGER REFERENCES Role_(role_id),
     registration_date TIMESTAMP,
     login VARCHAR(20),
     password VARCHAR(20)
