@@ -1,4 +1,5 @@
 package cmc.msu.webpracjaba.DAO;
 
-public interface JobPostDAO {
-}
+import cmc.msu.webpracjaba.models.JobPost;
+
+public interface JobPostDAO extends CommonDAO<JobPost, Integer> {}

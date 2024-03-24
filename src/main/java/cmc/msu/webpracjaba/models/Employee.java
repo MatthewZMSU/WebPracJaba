@@ -19,7 +19,7 @@ public abstract class Employee implements Common<Integer> {
     @NonNull
     private Integer employee_id;
 
-    @Column(name = "first_name", nullable = false)  // TODO: to constraint the length
+    @Column(name = "first_name", nullable = false)
     @NonNull
     private String first_name;
 

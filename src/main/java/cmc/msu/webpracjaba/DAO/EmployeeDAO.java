@@ -19,12 +19,10 @@ public interface EmployeeDAO extends CommonDAO<Employee, Integer> {
     @Builder
     @Getter
     class Filter {
-        private int employee_id;
+        private Integer employee_id;
         private String first_name;
         private String second_name;
         private String middle_name;
-        private String address;
-        private String education;
     }
 
     static Filter.FilterBuilder getFilterBuilder() {

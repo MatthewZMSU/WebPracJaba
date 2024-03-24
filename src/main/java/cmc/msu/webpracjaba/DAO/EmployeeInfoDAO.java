@@ -15,5 +15,5 @@ public interface EmployeeInfoDAO extends CommonDAO<EmployeeInfo, Integer> {
      * 6.) Deleting
      */
 
-    List<EmployeeInfo> getEmployeeHistory(int employee_id);
+    List<EmployeeInfo> getEmployeeHistory(Integer employee_id);
 }

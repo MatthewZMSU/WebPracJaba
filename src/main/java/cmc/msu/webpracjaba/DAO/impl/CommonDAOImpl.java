@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Repository
+@Repository(value = "")
 public abstract class CommonDAOImpl<T extends Common<ID>, ID extends Serializable> implements CommonDAO<T, ID> {
     protected SessionFactory sessionFactory;
 
@@ -44,7 +44,6 @@ public abstract class CommonDAOImpl<T extends Common<ID>, ID extends Serializabl
             return session.createQuery(criteriaQuery).getResultList();
         }
     }
-
 
     @Override
     public T save(T entity) {

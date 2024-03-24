@@ -21,11 +21,9 @@ public interface DepartmentDAO extends CommonDAO<Department, Integer> {
     @Builder
     @Getter
     class Filter {
-        private int department_id;
+        private Integer department_id;
         private String name;
-        private String description;
-        private Employee director;
-        private Department head_department;
+        private Integer director;
     }
 
     static Filter.FilterBuilder getFilterBuilder() {
@@ -34,5 +32,5 @@ public interface DepartmentDAO extends CommonDAO<Department, Integer> {
 
     List<Department> searchDepartment(Filter filter);
 
-    List<Department> getDepartmentStructure(int department_id);
+    List<Department> getDepartmentStructure(Integer department_id);
 }

@@ -1,4 +1,5 @@
 package cmc.msu.webpracjaba.DAO;
 
-public interface DutyDAO {
-}
+import cmc.msu.webpracjaba.models.Duty;
+
+public interface DutyDAO extends CommonDAO<Duty, Integer> {}

@@ -1,4 +1,5 @@
 package cmc.msu.webpracjaba.DAO;
 
-public interface UserTypeDAO {
-}
+import cmc.msu.webpracjaba.models.UserType;
+
+public interface UserTypeDAO extends CommonDAO<UserType, Integer> {}
