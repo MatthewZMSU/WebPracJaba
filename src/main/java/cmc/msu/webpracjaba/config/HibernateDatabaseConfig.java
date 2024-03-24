@@ -1,4 +1,4 @@
-package cmc.msu.webpracjaba.configs;
+package cmc.msu.webpracjaba.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,18 +14,18 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 public class HibernateDatabaseConfig {
     @Value("${driver}")
-    private String DB_DRIVER;
+    private String DRIVER;
     @Value("${url}")
-    private String DB_URL;
+    private String URL;
     @Value("${username}")
-    private String DB_USERNAME;
+    private String USERNAME;
     @Value("${password}")
-    private String DB_PASSWORD;
+    private String PASSWORD;
 
     @Bean(name="entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(oraDataSource());
+        sessionFactory.setDataSource(getDataSource());
         sessionFactory.setPackagesToScan("cmc.msu.webpracjaba.models");
 
         Properties hibernateProperties = new Properties();
@@ -39,13 +39,13 @@ public class HibernateDatabaseConfig {
     }
 
     @Bean
-    public DataSource oraDataSource() {
+    public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(DB_DRIVER);
-        dataSource.setUrl(DB_URL);
-        dataSource.setUsername(DB_USERNAME);
-        dataSource.setPassword(DB_PASSWORD);
+        dataSource.setDriverClassName(this.DRIVER);
+        dataSource.setUrl(this.URL);
+        dataSource.setUsername(this.USERNAME);
+        dataSource.setPassword(this.PASSWORD);
 
         return dataSource;
     }

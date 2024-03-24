@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public abstract class Employee implements Common<Integer> {
+public class Employee implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", nullable = false)
@@ -23,9 +23,9 @@ public abstract class Employee implements Common<Integer> {
     @NonNull
     private String first_name;
 
-    @Column(name = "second_name", nullable = false)
+    @Column(name = "last_name", nullable = false)
     @NonNull
-    private String second_name;
+    private String last_name;
 
     @Column(name = "middle_name", nullable = true)
     @Nullable
@@ -38,4 +38,14 @@ public abstract class Employee implements Common<Integer> {
     @Column(name = "education", nullable = false)
     @NonNull
     private String education;
+
+    @Override
+    public Integer getId() {
+        return this.employee_id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.employee_id = id;
+    }
 }

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public abstract class EmployeeInfo implements Common<Integer> {
+public class EmployeeInfo implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_info_id", nullable = false)
@@ -43,4 +43,14 @@ public abstract class EmployeeInfo implements Common<Integer> {
     @Column(name = "end_date", nullable = true)
     @Nullable
     private Timestamp end_date;
+
+    @Override
+    public Integer getId() {
+        return this.employee_info_id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.employee_info_id = id;
+    }
 }

@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public abstract class Department implements Common<Integer> {
+public class Department implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id", nullable = false)
@@ -36,4 +36,14 @@ public abstract class Department implements Common<Integer> {
     @JoinColumn(name = "head_department", nullable = true)
     @Nullable
     private Department head_department;
+
+    @Override
+    public Integer getId() {
+        return this.department_id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.department_id = id;
+    }
 }

@@ -30,7 +30,7 @@ public class DepartmentDAOImpl extends CommonDAOImpl<Department, Integer> implem
                 predicates.add(builder.equal(root.get("name"), filter.getName()));
             }
             if (filter.getDirector() != null) {
-                predicates.add(builder.equal(root.get("director"), filter.getDirector()));
+                predicates.add(builder.equal(root.get("director").get("employee_id"), filter.getDirector()));
             }
 
             if (!predicates.isEmpty()) {
@@ -39,7 +39,7 @@ public class DepartmentDAOImpl extends CommonDAOImpl<Department, Integer> implem
 
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception err) {
-            System.out.println("Got an exception in searchDepartment method.\n The exception:\n" + err);
+            System.out.println("Got an exception in searchDepartment method.\nThe exception:\n" + err);
             return null;
         }
     }
@@ -47,9 +47,10 @@ public class DepartmentDAOImpl extends CommonDAOImpl<Department, Integer> implem
     @Override
     public List<Department> getDepartmentStructure(Integer department_id) {
         List<Department> departments = new ArrayList<>();
-        departments.add(getById(department_id));  // Head department (maybe null)
+        departments.add(getById(department_id).getHead_department());  // Head department (maybe null)
         for (Department department : getAll()) {  // All sub-departments
-            if (department.getDepartment_id().equals(department_id)) {
+            Department headDepartment = department.getHead_department();
+            if (headDepartment != null && headDepartment.getDepartment_id().equals(department_id)) {
                 departments.add(department);
             }
         }

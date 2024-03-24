@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public abstract class UserAccount implements Common<Integer> {
+public class UserAccount implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_account_id", nullable = false)
@@ -49,4 +49,14 @@ public abstract class UserAccount implements Common<Integer> {
     @Column(name = "password", nullable = false)
     @NonNull
     private String password;
+
+    @Override
+    public Integer getId() {
+        return this.user_account_id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.user_account_id = id;
+    }
 }

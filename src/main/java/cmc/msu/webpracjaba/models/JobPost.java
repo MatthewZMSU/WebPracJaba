@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public abstract class JobPost implements Common<Integer> {
+public class JobPost implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_post_id", nullable = false)
@@ -33,4 +33,14 @@ public abstract class JobPost implements Common<Integer> {
     @JoinColumn(name = "duties", nullable = false)
     @NonNull
     private List<Duty> duties;
+
+    @Override
+    public Integer getId() {
+        return this.job_post_id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.job_post_id = id;
+    }
 }

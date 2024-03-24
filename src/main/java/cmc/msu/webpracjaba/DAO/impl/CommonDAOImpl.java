@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Repository(value = "")
+@Repository
 public abstract class CommonDAOImpl<T extends Common<ID>, ID extends Serializable> implements CommonDAO<T, ID> {
     protected SessionFactory sessionFactory;
 

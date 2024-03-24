@@ -21,7 +21,7 @@ public interface EmployeeDAO extends CommonDAO<Employee, Integer> {
     class Filter {
         private Integer employee_id;
         private String first_name;
-        private String second_name;
+        private String last_name;
         private String middle_name;
     }
 

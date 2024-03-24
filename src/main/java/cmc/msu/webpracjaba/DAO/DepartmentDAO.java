@@ -1,7 +1,6 @@
 package cmc.msu.webpracjaba.DAO;
 
 import cmc.msu.webpracjaba.models.Department;
-import cmc.msu.webpracjaba.models.Employee;
 import lombok.Builder;
 import lombok.Getter;
 

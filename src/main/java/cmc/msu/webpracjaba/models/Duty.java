@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public abstract class Duty implements Common<Integer> {
+public class Duty implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "duty_id", nullable = false)
@@ -21,4 +21,14 @@ public abstract class Duty implements Common<Integer> {
     @Column(name = "description", nullable = false)
     @NonNull
     private String description;
+
+    @Override
+    public Integer getId() {
+        return this.duty_id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.duty_id = id;
+    }
 }
