@@ -1,12 +1,10 @@
 package cmc.msu.webpracjaba.DAO;
 
+import cmc.msu.webpracjaba.Common;
+
 import java.util.Collection;
 
-public interface CommonDAO<T, ID> {
-    ID getId();
-
-    void setId(ID id);
-
+public interface CommonDAO<T extends Common<ID>, ID> {
     T getById(ID id);
 
     Collection<T> getAll();

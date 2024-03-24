@@ -1,17 +1,26 @@
 package cmc.msu.webpracjaba.models;
 
+import cmc.msu.webpracjaba.Common;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "Department")
-public class Department {
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
+public abstract class Department implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id", nullable = false)
-    private int department_id;
+    @NonNull
+    private Integer department_id;
 
     @Column(name = "name", nullable = false)
+    @NonNull
     private String name;
 
     @Column(name = "description", nullable = true)
@@ -20,6 +29,7 @@ public class Department {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "director", nullable = false)
+    @NonNull
     private Employee director;
 
     @ManyToOne(fetch = FetchType.LAZY)
