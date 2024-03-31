@@ -38,9 +38,6 @@ public class DepartmentDAOImpl extends CommonDAOImpl<Department, Integer> implem
             }
 
             return session.createQuery(criteriaQuery).getResultList();
-        } catch (Exception err) {
-            System.out.println("Got an exception in searchDepartment method.\nThe exception:\n" + err);
-            return null;
         }
     }
 

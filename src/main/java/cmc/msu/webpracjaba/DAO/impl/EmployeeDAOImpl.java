@@ -44,9 +44,6 @@ public class EmployeeDAOImpl extends CommonDAOImpl<Employee, Integer> implements
             }
 
             return session.createQuery(criteriaQuery).getResultList();
-        } catch (Exception err) {
-            System.out.println("Got an exception in searchEmployee method.\nThe exception:\n" + err);
-            return null;
         }
     }
 }
