@@ -87,6 +87,41 @@ public class EmployeeDAOTest {
         assertEquals(0, employees.size());
     }
 
+    @Test
+    void addNewEmployees() {
+        Employee employee1 = new Employee(0,
+                "Смит", "Уилл",
+                "ДСЛ МГУ", "ВМК МГУ");
+        Employee employee2 = new Employee(0,
+                "Михаил", "Зубенко",
+                "Цыганская str. 18", "ПТУ");
+
+        List<Employee> employees = List.of(employee1, employee2);
+        employeeDAO.saveCollection(employees);
+        List<Employee> allEmployees = (List<Employee>) employeeDAO.getAll();
+        assertEquals(allEmployees.size(), 8);
+        for (int i = 6; i < 8; i++) {
+            employeeDAO.delete(allEmployees.get(i));
+        }
+        allEmployees = (List<Employee>) employeeDAO.getAll();
+        assertEquals(allEmployees.size(), 6);
+    }
+
+    @Test
+    void changeEmployee() {
+        Employee oldEmployee = employeeDAO.getById(3);
+        assertNotNull(oldEmployee);
+        oldEmployee.setEducation("МФТИ");
+        Employee newEmployee = employeeDAO.update(oldEmployee);
+        assertNotNull(newEmployee);
+        Employee employeeToCheck = employeeDAO.getById(3);
+        assertEquals(employeeToCheck.getEducation(), "МФТИ");
+        employeeToCheck.setEducation("МГУ имени М.В.Ломоносова");
+        assertNotNull(employeeDAO.update(employeeToCheck));
+        List<Employee> allEmployees = (List<Employee>) employeeDAO.getAll();
+        assertEquals(allEmployees.size(), 6);
+    }
+
     @BeforeAll
     @AfterEach
     void annihilation() {

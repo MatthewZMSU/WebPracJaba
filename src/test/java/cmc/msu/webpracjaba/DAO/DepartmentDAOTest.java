@@ -1,6 +1,7 @@
 package cmc.msu.webpracjaba.DAO;
 
 import cmc.msu.webpracjaba.models.Department;
+import cmc.msu.webpracjaba.models.Employee;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -21,6 +22,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DepartmentDAOTest {
     @Autowired
     private DepartmentDAO departmentDAO;
+
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
@@ -92,6 +96,20 @@ public class DepartmentDAOTest {
         assertNotNull(departments);
         assertEquals(1, departments.size());
         assertEquals(2, departments.getFirst().getDepartment_id());
+    }
+
+    @Test
+    void InsertDeleteDepartment() {
+        Employee director = employeeDAO.getById(2);
+        assertNotNull(director);
+        Department department = new Department(0, "НьюДепартмент", director);
+        departmentDAO.save(department);
+        List<Department> all_departments = (List<Department>) departmentDAO.getAll();
+        assertEquals(all_departments.size(), 8);
+        Department addedDepartment = all_departments.get(7);
+        departmentDAO.deleteById(addedDepartment.getId());
+        all_departments = (List<Department>) departmentDAO.getAll();
+        assertEquals(all_departments.size(), 7);
     }
 
     @BeforeAll
