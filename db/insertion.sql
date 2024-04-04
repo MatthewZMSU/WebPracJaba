@@ -15,11 +15,11 @@ INSERT INTO Department(name, description, director, head_department) VALUES
     ('Java разработка', 'Разработка приложений на Java', 1, 2),
     ('JavaScript разработка', 'Разработка приложений на JavaScript', 1, 2);
 
-INSERT INTO Position_(name, description, duties) VALUES
-    ('Разработчик', 'Разрабатывает ПО', [1]),
-    ('Главный разработчик', 'Опытный и хорошо разрабатывает ПО', [1, 2]),
-    ('Аналитик', 'Ищет закономерности, анализирует', [3]),
-    ('Главный аналитик', 'Ищет закономерности, анализирует', [3, 4]);
+INSERT INTO JobPost(name, description, duties) VALUES
+    ('Разработчик', 'Разрабатывает ПО', '{1}'),
+    ('Главный разработчик', 'Опытный и хорошо разрабатывает ПО', '{1, 2}'),
+    ('Аналитик', 'Ищет закономерности, анализирует', '{3}'),
+    ('Главный аналитик', 'Ищет закономерности, анализирует', '{3, 4}');
 
 INSERT INTO Duty(description) VALUES
     ('Раработка и отладка ПО'),
@@ -27,7 +27,7 @@ INSERT INTO Duty(description) VALUES
     ('Построение гипотез, их анализ'),
     ('Проверка гипотез других аналитиков');
 
-INSERT INTO EmployeeInfo(employee_id, position_id, department_id, start_date, end_date) VALUES
+INSERT INTO EmployeeInfo(employee_id, job_post_id, department_id, start_date, end_date) VALUES
     (1, 1, 2, '2022-10-10 6:00:00', '2023-09-09 5:59:59'),
     (2, 1, 5, '2022-10-10 6:00:00', '2022-12-01 5:59:59'),
     (3, 1, 6, '2022-10-10 6:00:00', '2024-01-10 5:59:59'),
@@ -37,11 +37,11 @@ INSERT INTO EmployeeInfo(employee_id, position_id, department_id, start_date, en
     (6, 1, 6, '2022-10-10 6:00:00', '2023-09-09 5:59:59'),
     (3, 2, 2, '2024-01-10 6:00:00', NULL);
 
-INSERT INTO Role_(role_name, description) VALUES
+INSERT INTO UserType(user_type_name, description) VALUES
     ('Обычный пользователь', 'Ничего особенного'),
     ('Продвинутый пользователь', 'Доступны некоторые функции данные дополнительно');
 
-INSERT INTO User_(first_name, last_name, middle_name, role_id, register_date, login, password) VALUES
+INSERT INTO UserAccount(first_name, last_name, middle_name, user_type_id, registration_date, login, password) VALUES
     ('Юлия', 'Викторова', 'Николаевна', 1, '2023-09-09 6:00:00', 'UVN', '1234'),
     ('Николай', 'Андреев', 'Викторович', 1, '2023-09-09 6:00:00', 'NAV88', '1234'),
     ('Денис', 'Николаев', 'Николаевич', 2, '2023-09-09 6:00:00', 'DNN123', '1234'),
