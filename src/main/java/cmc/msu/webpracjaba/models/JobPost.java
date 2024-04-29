@@ -1,12 +1,9 @@
 package cmc.msu.webpracjaba.models;
 
 import cmc.msu.webpracjaba.Common;
-import io.hypersistence.utils.hibernate.type.array.IntArrayType;
-import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -32,11 +29,10 @@ public class JobPost implements Common<Integer> {
     @Nullable
     private String description;
 
-    @Type(ListArrayType.class)
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "duties", nullable = false)
+    @ElementCollection
+    @Column(name = "duties", nullable = false)
     @NonNull
-    private List<Duty> duties;
+    private List<Integer> duties;
 
     @Override
     public Integer getId() {
