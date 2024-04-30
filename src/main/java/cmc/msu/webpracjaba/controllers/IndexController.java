@@ -2,12 +2,13 @@ package cmc.msu.webpracjaba.controllers;
 
 import cmc.msu.webpracjaba.DAO.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping(value = {"/"})
+@Controller
+@RequestMapping({"/", "/home"})
 public class IndexController {
     @Autowired
     private DepartmentDAO departmentDAO;
@@ -31,7 +32,8 @@ public class IndexController {
     private UserTypeDAO userTypeDAO;
 
     @GetMapping
-    public String index() {
-        return "Hello World";
+    public String index(Model model) {
+        model.addAttribute("ServerTime", 12345);
+        return "home";
     }
 }
