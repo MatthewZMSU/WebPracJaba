@@ -5,9 +5,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}"/>
-    <title>Employees</title>
+    <title th:text="${'Работник№' + employeeNo}"></title>
 </head>
-
 <body class="sub_page">
 
 <!-- header section starts -->
@@ -15,7 +14,7 @@
     <header class="header_section">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container">
-                <a class="navbar-brand" th:href="home">
+                <a class="navbar-brand" th:href="@{/home}">
                     <span>
                         CoworkaInfo
                     </span>
@@ -29,20 +28,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="home">Главная<span class="sr-only">(текущая страница)</span></a>
+                            <a class="nav-link" th:href="@{/home}">Главная<span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="employee">Работники</a>
+                            <a class="nav-link" th:href="@{/employee}">Работники (текущая страница)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="department">Подразделения</a>
+                            <a class="nav-link" th:href="@{/department}">Подразделения</a>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <div class="custom_menu-btn ">
                         <button>
-                            <span class=" s-1"></span>
+                            <span class="s-1"></span>
                             <span class="s-2"></span>
                             <span class="s-3"></span>
                         </button>
@@ -53,6 +52,49 @@
     </header>
 </div>
 <!-- header section ends -->
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="col-md-5 offset-md-1 detail-box tab-content tab_container">
+            <div class="box">
+                <h3> ID </h3>
+                <h5 th:text="${employee.getEmployee().getId()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Имя </h3>
+                <h5 th:text="${employee.getEmployee().getFirst_name()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Фамилия </h3>
+                <h5 th:text="${employee.getEmployee().getLast_name()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Отчество </h3>
+                <h5 th:text="${employee.getEmployee().getMiddle_name()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Подразделение </h3>
+                <h5 th:text="${employee.getDepartment()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Должность </h3>
+                <h5 th:text="${employee.getJob()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Опыт работы </h3>
+                <h5 th:text="${#strings.toString(employee.getExperience()) + ' лет'}"></h5>
+            </div>
+            <div class="box">
+                <h3> Образование </h3>
+                <h5 th:text="${employee.getEmployee().getEducation()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Домашний адрес </h3>
+                <h5 th:text="${employee.getEmployee().getAddress()}"></h5>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 <script th:src="@{js/jquery-3.4.1.min.js}"></script>

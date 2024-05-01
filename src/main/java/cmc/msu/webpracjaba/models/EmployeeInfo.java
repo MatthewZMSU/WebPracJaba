@@ -21,17 +21,17 @@ public class EmployeeInfo implements Common<Integer> {
     @NonNull
     private Integer employee_info_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
     @NonNull
     private Employee employee_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "job_post_id", nullable = false)
     @NonNull
     private JobPost job_post_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", nullable = false)
     @NonNull
     private Department department_id;
