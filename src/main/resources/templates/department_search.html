@@ -72,49 +72,38 @@
 </div>
 
 <div class="container table-tab">
-    <div th:if="${employees == null}" class="text-body">
+    <div th:if="${departments == null}" class="text-body">
         <p class="text-center">Введите параметры поиска</p>
     </div>
-    <table th:unless="${employees == null}" class="table-bordered">
+    <table th:unless="${departments == null}" class="table-bordered">
         <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Фамилия</th>
-            <th scope="col">Имя</th>
-            <th scope="col">Отчество</th>
-            <th scope="col">Подразделение</th>
-            <th scope="col">Должность</th>
-            <th scope="col">Стаж</th>
+            <th scope="col">Название подразделения</th>
+            <th scope="col">Фамилия руководителя</th>
+            <th scope="col">Имя руководителя</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${employees.isEmpty()}">
-            <td colspan="7" class="text-center">Сотрудники не найдены. </td>
+        <tr th:if="${departments.isEmpty()}">
+            <td colspan="7" class="text-center">Подразделения не найдены. </td>
         </tr>
-        <tr th:each="employee : ${employees}">
+        <tr th:each="department : ${departments}">
             <td>
-                <a th:href="${'/employee/' + #strings.toString(employee.getEmployee().getId())}"><span th:text="${employee.getEmployee().getId()}"></span></a>
-            </td>
-            <td>
-                <span th:text="${employee.getEmployee().getFirst_name()}"> </span>
-            </td>
-            <td>
-                <span th:text="${employee.getEmployee().getLast_name()}"> </span>
-            </td>
-            <td>
-                <span th:text="${employee.getEmployee().getMiddle_name()}"> </span>
-            </td>
-            <td>
-                <a th:if="${employee.getDepartment() != null}" th:href="${'/department/' + employee.getDepartment().getDepartment_id()}">
-                    <span th:text="${employee.getDepartmentName()}"></span>
+                <a th:href="@{'/department/' + ${department.getId()}}">
+                    <span th:text="${department.getId()}"></span>
                 </a>
-                <span th:if="${employee.getDepartment() == null}" th:text="${'более не работает'}"></span>
             </td>
             <td>
-                <span th:text="${employee.getJob() == null ? 'более не работает' : employee.getJob()}"> </span>
+                <span th:text="${department.getName()}"></span>
             </td>
             <td>
-                <span th:text="${#strings.toString(employee.getExperience()) + ' лет'}"></span>
+                <a th:href="@{'/employee/' + ${department.getDirector().getId()}}">
+                    <span th:text="${department.getDirector().getLast_name()}"></span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${department.getDirector().getFirst_name()}"> </span>
             </td>
         </tr>
         </tbody>

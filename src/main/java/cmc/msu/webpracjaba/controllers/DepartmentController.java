@@ -80,14 +80,15 @@ public class DepartmentController {
             @RequestParam(required = false) String departmentName,
             @RequestParam(required = false) String directorLastName,
             Model model) {
-        List<DepartmentWrapper> finalDepartments = new ArrayList<>();
-
         if (departmentName != null && departmentName.isEmpty()) departmentName = null;
         if (directorLastName != null && directorLastName.isEmpty()) directorLastName = null;
 
-//        DepartmentDAO.getFilterBuilder()
-//                .
-
+        DepartmentDAO.Filter departmentFilter = DepartmentDAO.getFilterBuilder()
+                .directorLastName(directorLastName)
+                .name(departmentName)
+                .build();
+        List<Department> departments = departmentDAO.searchDepartment(departmentFilter);
+        model.addAttribute("departments", departments);
         return "department_search";
     }
 }
