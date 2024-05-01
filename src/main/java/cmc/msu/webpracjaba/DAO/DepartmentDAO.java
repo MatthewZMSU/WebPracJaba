@@ -22,7 +22,7 @@ public interface DepartmentDAO extends CommonDAO<Department, Integer> {
     class Filter {
         private Integer department_id;
         private String name;
-        private Integer director;
+        private String directorLastName;
     }
 
     static Filter.FilterBuilder getFilterBuilder() {

@@ -24,7 +24,8 @@ public class EmployeeController {
     class EmployeeWrapper {
         private final Employee employee;
         private final int experience;
-        private final String department;
+        private final Department department;
+        private final String departmentName;
         private final String job;
 
         public EmployeeWrapper(Employee employee) {
@@ -48,7 +49,8 @@ public class EmployeeController {
             }
 
             this.experience = (int) (employeeExperience / 365);
-            this.department = department == null ? null : department.getName();
+            this.department = department;
+            this.departmentName = department == null ? null : department.getName();
             this.job = jobPost == null ? null : jobPost.getName();
         }
     }
@@ -61,7 +63,6 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public String getEmployees(Model model) {
-        model.addAttribute("isSearched", false);
         return "employee_search";
     }
 
@@ -85,7 +86,6 @@ public class EmployeeController {
             @RequestParam(required = false) Integer experience,
             Model model) {
         List<EmployeeWrapper> finalEmployees = new ArrayList<>();
-        model.addAttribute("isSearched", true);
 
         if (experience != null && experience < 0) {
             model.addAttribute("employees", finalEmployees);
@@ -107,7 +107,7 @@ public class EmployeeController {
 
         for (Employee employee : employees) {
             EmployeeWrapper finalEmployee = new EmployeeWrapper(employee);
-            if (departmentName == null || departmentName.equals(finalEmployee.getDepartment())) {
+            if (departmentName == null || departmentName.equals(finalEmployee.getDepartmentName())) {
                 if (experience == null || experience <= finalEmployee.getExperience()) {
                     if (jobName == null || jobName.equals(finalEmployee.getJob())) {
                         finalEmployees.add(finalEmployee);

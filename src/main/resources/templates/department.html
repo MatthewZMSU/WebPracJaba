@@ -5,9 +5,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}"/>
-    <title>Departments</title>
+    <title th:text="${'Подразделение№' + departmentId}"></title>
 </head>
-
 <body class="sub_page">
 
 <!-- header section starts -->
@@ -32,17 +31,17 @@
                             <a class="nav-link" th:href="@{/home}">Главная<span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/employee}">Работники</a>
+                            <a class="nav-link" th:href="@{/employee}">Работники (текущая страница)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/department}">Подразделения (текущая страница)</a>
+                            <a class="nav-link" th:href="@{/department}">Подразделения</a>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <div class="custom_menu-btn ">
                         <button>
-                            <span class=" s-1"></span>
+                            <span class="s-1"></span>
                             <span class="s-2"></span>
                             <span class="s-3"></span>
                         </button>
@@ -53,8 +52,74 @@
     </header>
 </div>
 <!-- header section ends -->
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="col-md-5 offset-md-1 detail-box tab-content tab_container">
+            <div class="box">
+                <h3> ID </h3>
+                <h5 th:text="${department.getDepartment().getDepartment_id()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Название подразделения </h3>
+                <h5 th:text="${department.getDepartment().getName()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Описание подразделения </h3>
+                <h5 th:text="${department.getDepartment().getDescription()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Руководитель </h3>
+                <a th:href="${'/employee/' + department.getDepartment().getDirector().getEmployee_id()}">
+                    <h5 th:text="${department.getDepartment().getDirector().getLast_name()}"></h5>
+                    <h5 th:text="${department.getDepartment().getDirector().getFirst_name()}"></h5>
+                    <h5 th:text="${department.getDepartment().getDirector().getMiddle_name()}"></h5>
+                </a>
+            </div>
+            <div class="box">
+                <h3> Количество сотрудников </h3>
+                <h5 th:text="${department.getEmployeeCount()}"></h5>
+            </div>
+            <div class="box">
+                <h3> Сотрудники </h3>
+                <span th:if="${department.getJob2Employees().isEmpty()}" th:text="${'Отсутствуют'}"></span>
+                <ol th:unless="${department.getJob2Employees().isEmpty()}" class="list-group-horizontal">
+                    <li th:each="jobName : ${department.getJob2Employees().keySet()}" class="list-group-item">
+                        <span th:text="${jobName}" class="text-black-50"></span>
+                        <ol class="list-group-horizontal">
+                            <li th:each="employee: ${department.getJob2Employees().get(jobName)}" class="list-group-item">
+                                <a th:href="@{'/employee/' + ${employee.getEmployee_id()}}" class="btn-link">
+                                    <span th:text="${employee.getLast_name() + ' ' + employee.getFirst_name()}" class="text-black-50"></span>
+                                </a>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+            <div class="box">
+                <h3> Головное подразделение </h3>
+                <h5 th:if="${department.getDepartment().getHead_department() == null}" th:text="${'Отсутствует'}"></h5>
+                <a th:unless="${department.getDepartment().getHead_department() == null}" th:href="@{'/department/' + ${department.getDepartment().getHead_department().getDepartment_id()}}">
+                    <h5 th:text="${department.getDepartment().getHead_department().getName()}"></h5>
+                </a>
+            </div>
+            <div class="box">
+                <h3> Суб-подразделения </h3>
+                <span th:if="${department.getSubDepartments().isEmpty()}" th:text="${'Отсутствуют'}"></span>
+                <ol th:unless="${department.getSubDepartments().isEmpty()}" class="list-group-horizontal">
+                    <li th:each="subDepartment : ${department.getSubDepartments()}" class="list-group-item">
+                        <a th:href="@{'/department/' + ${subDepartment.getDepartment_id()}}">
+                            <span th:text="${subDepartment.getName()}" class="text-black-50"></span>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
-<script th:src="@{js/jquery-3.4.1.min.js}"></script>
-<script th:src="@{js/bootstrap.js}"></script>
-<script th:src="@{js/custom.js}"></script>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 </html>

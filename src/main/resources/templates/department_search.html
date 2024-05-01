@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}"/>
-    <title>Поиск работников</title>
+    <title>Departments</title>
 </head>
 
 <body class="sub_page">
@@ -32,17 +32,17 @@
                             <a class="nav-link" th:href="@{/home}">Главная<span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/employee}">Работники (текущая страница)</a>
+                            <a class="nav-link" th:href="@{/employee}">Работники</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/department}">Подразделения</a>
+                            <a class="nav-link" th:href="@{/department}">Подразделения (текущая страница)</a>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <div class="custom_menu-btn ">
                         <button>
-                            <span class="s-1"></span>
+                            <span class=" s-1"></span>
                             <span class="s-2"></span>
                             <span class="s-3"></span>
                         </button>
@@ -55,41 +55,20 @@
 <!-- header section ends -->
 
 <div class="container">
-<form class="form-text" th:method="get" th:action="@{/employee/search}">
-    <fieldset>
-        <label>
-            Имя:
-            <input type="text" name="firstName"/>
-        </label>
-        <br>
-        <label>
-            Фамилия:
-            <input type="text" name="lastName"/>
-        </label>
-        <br>
-        <label>
-            Отчество:
-            <input type="text" name="middleName"/>
-        </label>
-        <br>
-        <label>
-            Подразделение:
-            <input type="text" name="departmentName"/>
-        </label>
-        <br>
-        <label>
-            Должность:
-            <input type="text" name="jobName"/>
-        </label>
-        <br>
-        <label>
-            Стаж работы:
-            <input type="number" name="experience"/>
-        </label>
-        <br>
-    </fieldset>
-    <input class="btn-dark" type="submit" value="Поиск!"/>
-</form>
+    <form class="form-text" th:method="get" th:action="@{/department/search}">
+        <fieldset>
+            <label>
+                Название подразделения:
+                <input type="text" name="departmentName"/>
+            </label>
+            <br>
+            <label>
+                Фамилия руководителя:
+                <input type="text" name="directorLastName"/>
+            </label>
+        </fieldset>
+        <input class="btn-dark" type="submit" value="Поиск!"/>
+    </form>
 </div>
 
 <div class="container table-tab">
@@ -142,9 +121,8 @@
     </table>
 
 </div>
-
 </body>
-<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-<script th:src="@{/js/bootstrap.js}"></script>
-<script th:src="@{/js/custom.js}"></script>
+<script th:src="@{js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{js/bootstrap.js}"></script>
+<script th:src="@{js/custom.js}"></script>
 </html>

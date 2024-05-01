@@ -41,7 +41,7 @@ public class DepartmentDAOTest {
     @Test
     void searchDepartmentByDirector() {
         DepartmentDAO.Filter.FilterBuilder filter = new DepartmentDAO.Filter.FilterBuilder();
-        filter.director(3);
+        filter.directorLastName("Николаев");
 
         List<Department> departments = departmentDAO.searchDepartment(filter.build());
         assertNotNull(departments);
@@ -73,7 +73,7 @@ public class DepartmentDAOTest {
         DepartmentDAO.Filter.FilterBuilder filter = new DepartmentDAO.Filter.FilterBuilder();
         filter.name("Аналитика");
         filter.department_id(1);
-        filter.director(1);
+        filter.directorLastName("Викторова");
 
         List<Department> departments = departmentDAO.searchDepartment(filter.build());
         assertNotNull(departments);
