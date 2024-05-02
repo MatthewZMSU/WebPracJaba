@@ -2,9 +2,9 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css"/>
     <title>Поиск работников</title>
 </head>
 
@@ -55,48 +55,61 @@
 <!-- header section ends -->
 
 <div class="container">
-<form class="form-text" th:method="get" th:action="@{/employee/search}">
-    <fieldset>
-        <label>
-            Имя:
-            <input type="text" name="firstName"/>
-        </label>
-        <br>
-        <label>
-            Фамилия:
-            <input type="text" name="lastName"/>
-        </label>
-        <br>
-        <label>
-            Отчество:
-            <input type="text" name="middleName"/>
-        </label>
-        <br>
-        <label>
-            Подразделение:
-            <input type="text" name="departmentName"/>
-        </label>
-        <br>
-        <label>
-            Должность:
-            <input type="text" name="jobName"/>
-        </label>
-        <br>
-        <label>
-            Стаж работы:
-            <input type="number" name="experience"/>
-        </label>
-        <br>
-    </fieldset>
-    <input class="btn-dark" type="submit" value="Поиск!"/>
-</form>
+    <div class="row">
+        <div class="container align-content-center">
+            <section class="experience_section">
+                <div class="detail-box">
+                    <div class="btn-box">
+                        <a class="btn-1" th:href="@{/employee/add}">Добавить сотрудника</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="container">
+            <form class="form-text" th:action="@{/employee/search}" th:method="get">
+                <fieldset>
+                    <label>
+                        Имя:
+                        <input name="firstName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Фамилия:
+                        <input name="lastName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Отчество:
+                        <input name="middleName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Подразделение:
+                        <input name="departmentName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Должность:
+                        <input name="jobName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Стаж работы:
+                        <input name="experience" type="number"/>
+                    </label>
+                    <br>
+                </fieldset>
+                <input class="btn-dark" type="submit" value="Поиск!"/>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="container table-tab">
-    <div th:if="${employees == null}" class="text-body">
+    <div class="text-body" th:if="${employees == null}">
         <p class="text-center">Введите параметры поиска</p>
     </div>
-    <table th:unless="${employees == null}" class="table-bordered">
+    <table class="table-bordered" th:unless="${employees == null}">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -110,11 +123,12 @@
         </thead>
         <tbody>
         <tr th:if="${employees.isEmpty()}">
-            <td colspan="7" class="text-center">Сотрудники не найдены. </td>
+            <td class="text-center" colspan="7">Сотрудники не найдены.</td>
         </tr>
         <tr th:each="employee : ${employees}">
             <td>
-                <a th:href="${'/employee/' + #strings.toString(employee.getEmployee().getId())}"><span th:text="${employee.getEmployee().getId()}"></span></a>
+                <a th:href="${'/employee/' + #strings.toString(employee.getEmployee().getId())}"><span
+                        th:text="${employee.getEmployee().getId()}"></span></a>
             </td>
             <td>
                 <span th:text="${employee.getEmployee().getFirst_name()}"> </span>
@@ -126,7 +140,8 @@
                 <span th:text="${employee.getEmployee().getMiddle_name()}"> </span>
             </td>
             <td>
-                <a th:if="${employee.getDepartment() != null}" th:href="${'/department/' + employee.getDepartment().getDepartment_id()}">
+                <a th:href="${'/department/' + employee.getDepartment().getDepartment_id()}"
+                   th:if="${employee.getDepartment() != null}">
                     <span th:text="${employee.getDepartmentName()}"></span>
                 </a>
                 <span th:if="${employee.getDepartment() == null}" th:text="${'более не работает'}"></span>
@@ -140,9 +155,7 @@
         </tr>
         </tbody>
     </table>
-
 </div>
-
 </body>
 <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.js}"></script>

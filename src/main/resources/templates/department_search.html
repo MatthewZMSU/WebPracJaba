@@ -2,9 +2,9 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css"/>
     <title>Departments</title>
 </head>
 
@@ -55,16 +55,16 @@
 <!-- header section ends -->
 
 <div class="container">
-    <form class="form-text" th:method="get" th:action="@{/department/search}">
+    <form class="form-text" th:action="@{/department/search}" th:method="get">
         <fieldset>
             <label>
                 Название подразделения:
-                <input type="text" name="departmentName"/>
+                <input name="departmentName" type="text"/>
             </label>
             <br>
             <label>
                 Фамилия руководителя:
-                <input type="text" name="directorLastName"/>
+                <input name="directorLastName" type="text"/>
             </label>
         </fieldset>
         <input class="btn-dark" type="submit" value="Поиск!"/>
@@ -72,10 +72,10 @@
 </div>
 
 <div class="container table-tab">
-    <div th:if="${departments == null}" class="text-body">
+    <div class="text-body" th:if="${departments == null}">
         <p class="text-center">Введите параметры поиска</p>
     </div>
-    <table th:unless="${departments == null}" class="table-bordered">
+    <table class="table-bordered" th:unless="${departments == null}">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -86,7 +86,7 @@
         </thead>
         <tbody>
         <tr th:if="${departments.isEmpty()}">
-            <td colspan="7" class="text-center">Подразделения не найдены. </td>
+            <td class="text-center" colspan="7">Подразделения не найдены.</td>
         </tr>
         <tr th:each="department : ${departments}">
             <td>

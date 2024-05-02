@@ -2,9 +2,9 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css"/>
     <title th:text="${'Подразделение№' + departmentId}"></title>
 </head>
 <body class="sub_page">
@@ -83,13 +83,15 @@
             <div class="box">
                 <h3> Сотрудники </h3>
                 <span th:if="${department.getJob2Employees().isEmpty()}" th:text="${'Отсутствуют'}"></span>
-                <ol th:unless="${department.getJob2Employees().isEmpty()}" class="list-group-horizontal">
-                    <li th:each="jobName : ${department.getJob2Employees().keySet()}" class="list-group-item">
-                        <span th:text="${jobName}" class="text-black-50"></span>
+                <ol class="list-group-horizontal" th:unless="${department.getJob2Employees().isEmpty()}">
+                    <li class="list-group-item" th:each="jobName : ${department.getJob2Employees().keySet()}">
+                        <span class="text-black-50" th:text="${jobName}"></span>
                         <ol class="list-group-horizontal">
-                            <li th:each="employee: ${department.getJob2Employees().get(jobName)}" class="list-group-item">
-                                <a th:href="@{'/employee/' + ${employee.getEmployee_id()}}" class="btn-link">
-                                    <span th:text="${employee.getLast_name() + ' ' + employee.getFirst_name()}" class="text-black-50"></span>
+                            <li class="list-group-item"
+                                th:each="employee: ${department.getJob2Employees().get(jobName)}">
+                                <a class="btn-link" th:href="@{'/employee/' + ${employee.getEmployee_id()}}">
+                                    <span class="text-black-50"
+                                          th:text="${employee.getLast_name() + ' ' + employee.getFirst_name()}"></span>
                                 </a>
                             </li>
                         </ol>
@@ -99,23 +101,34 @@
             <div class="box">
                 <h3> Головное подразделение </h3>
                 <h5 th:if="${department.getDepartment().getHead_department() == null}" th:text="${'Отсутствует'}"></h5>
-                <a th:unless="${department.getDepartment().getHead_department() == null}" th:href="@{'/department/' + ${department.getDepartment().getHead_department().getDepartment_id()}}">
+                <a th:href="@{'/department/' + ${department.getDepartment().getHead_department().getDepartment_id()}}"
+                   th:unless="${department.getDepartment().getHead_department() == null}">
                     <h5 th:text="${department.getDepartment().getHead_department().getName()}"></h5>
                 </a>
             </div>
             <div class="box">
                 <h3> Суб-подразделения </h3>
                 <span th:if="${department.getSubDepartments().isEmpty()}" th:text="${'Отсутствуют'}"></span>
-                <ol th:unless="${department.getSubDepartments().isEmpty()}" class="list-group-horizontal">
-                    <li th:each="subDepartment : ${department.getSubDepartments()}" class="list-group-item">
+                <ol class="list-group-horizontal" th:unless="${department.getSubDepartments().isEmpty()}">
+                    <li class="list-group-item" th:each="subDepartment : ${department.getSubDepartments()}">
                         <a th:href="@{'/department/' + ${subDepartment.getDepartment_id()}}">
-                            <span th:text="${subDepartment.getName()}" class="text-black-50"></span>
+                            <span class="text-black-50" th:text="${subDepartment.getName()}"></span>
                         </a>
                     </li>
                 </ol>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <section class="experience_section">
+        <div class="detail-box">
+            <div class="btn-box">
+                <a class="btn-1" th:href="@{/department/add}">Создать подразделение</a>
+            </div>
+        </div>
+    </section>
 </div>
 
 </body>

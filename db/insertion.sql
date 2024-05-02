@@ -39,7 +39,7 @@ INSERT INTO EmployeeInfo(employee_id, job_post_id, department_id, start_date, en
 
 INSERT INTO UserType(user_type_name, description) VALUES
     ('Обычный пользователь', 'Ничего особенного'),
-    ('Продвинутый пользователь', 'Доступны некоторые функции данные дополнительно');
+    ('Продвинутый пользователь', 'Доступны некоторые функции и данные дополнительно');
 
 INSERT INTO UserAccount(first_name, last_name, middle_name, user_type_id, registration_date, login, password) VALUES
     ('Юлия', 'Викторова', 'Николаевна', 1, '2023-09-09 6:00:00', 'UVN', '1234'),

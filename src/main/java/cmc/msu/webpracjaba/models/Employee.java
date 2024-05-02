@@ -11,6 +11,7 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor(force = true)
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class Employee implements Common<Integer> {
     @Id
