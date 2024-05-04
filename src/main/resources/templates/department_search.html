@@ -55,20 +55,33 @@
 <!-- header section ends -->
 
 <div class="container">
-    <form class="form-text" th:action="@{/department/search}" th:method="get">
-        <fieldset>
-            <label>
-                Название подразделения:
-                <input name="departmentName" type="text"/>
-            </label>
-            <br>
-            <label>
-                Фамилия руководителя:
-                <input name="directorLastName" type="text"/>
-            </label>
-        </fieldset>
-        <input class="btn-dark" type="submit" value="Поиск!"/>
-    </form>
+    <div class="row">
+        <div class="container align-content-center">
+            <section class="experience_section">
+                <div class="detail-box">
+                    <div class="btn-box">
+                        <a class="btn-1" th:href="@{/department/add}">Добавить подразделение</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="container">
+            <form class="form-text" th:action="@{/department/search}" th:method="get">
+                <fieldset>
+                    <label>
+                        Название подразделения:
+                        <input name="departmentName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Фамилия руководителя:
+                        <input name="directorLastName" type="text"/>
+                    </label>
+                </fieldset>
+                <input class="btn-dark" type="submit" value="Поиск!"/>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="container table-tab">

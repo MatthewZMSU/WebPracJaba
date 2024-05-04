@@ -54,81 +54,123 @@
 <!-- header section ends -->
 
 <div class="container">
-    <div class="container-fluid">
-        <div class="col-md-5 offset-md-1 detail-box tab-content tab_container">
-            <div class="box">
-                <h3> ID </h3>
-                <h5 th:text="${department.getDepartment().getDepartment_id()}"></h5>
-            </div>
-            <div class="box">
-                <h3> Название подразделения </h3>
-                <h5 th:text="${department.getDepartment().getName()}"></h5>
-            </div>
-            <div class="box">
-                <h3> Описание подразделения </h3>
-                <h5 th:text="${department.getDepartment().getDescription()}"></h5>
-            </div>
-            <div class="box">
-                <h3> Руководитель </h3>
-                <a th:href="${'/employee/' + department.getDepartment().getDirector().getEmployee_id()}">
-                    <h5 th:text="${department.getDepartment().getDirector().getLast_name()}"></h5>
-                    <h5 th:text="${department.getDepartment().getDirector().getFirst_name()}"></h5>
-                    <h5 th:text="${department.getDepartment().getDirector().getMiddle_name()}"></h5>
-                </a>
-            </div>
-            <div class="box">
-                <h3> Количество сотрудников </h3>
-                <h5 th:text="${department.getEmployeeCount()}"></h5>
-            </div>
-            <div class="box">
-                <h3> Сотрудники </h3>
-                <span th:if="${department.getJob2Employees().isEmpty()}" th:text="${'Отсутствуют'}"></span>
-                <ol class="list-group-horizontal" th:unless="${department.getJob2Employees().isEmpty()}">
-                    <li class="list-group-item" th:each="jobName : ${department.getJob2Employees().keySet()}">
-                        <span class="text-black-50" th:text="${jobName}"></span>
-                        <ol class="list-group-horizontal">
-                            <li class="list-group-item"
-                                th:each="employee: ${department.getJob2Employees().get(jobName)}">
-                                <a class="btn-link" th:href="@{'/employee/' + ${employee.getEmployee_id()}}">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="col-md-5 offset-md-1 detail-box tab-content tab_container">
+                <div class="box">
+                    <h3> ID </h3>
+                    <h5 th:text="${department.getDepartment().getDepartment_id()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Название подразделения </h3>
+                    <h5 th:text="${department.getDepartment().getName()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Описание подразделения </h3>
+                    <h5 th:text="${department.getDepartment().getDescription()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Руководитель </h3>
+                    <a th:href="${'/employee/' + department.getDepartment().getDirector().getEmployee_id()}">
+                        <h5 th:text="${department.getDepartment().getDirector().getLast_name()}"></h5>
+                        <h5 th:text="${department.getDepartment().getDirector().getFirst_name()}"></h5>
+                        <h5 th:text="${department.getDepartment().getDirector().getMiddle_name()}"></h5>
+                    </a>
+                </div>
+                <div class="box">
+                    <h3> Количество сотрудников </h3>
+                    <h5 th:text="${department.getEmployeeCount()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Сотрудники </h3>
+                    <span th:if="${department.getJob2Employees().isEmpty()}" th:text="${'Отсутствуют'}"></span>
+                    <ol class="list-group-horizontal" th:unless="${department.getJob2Employees().isEmpty()}">
+                        <li class="list-group-item" th:each="jobName : ${department.getJob2Employees().keySet()}">
+                            <span class="text-black-50" th:text="${jobName}"></span>
+                            <ol class="list-group-horizontal">
+                                <li class="list-group-item"
+                                    th:each="employee: ${department.getJob2Employees().get(jobName)}">
+                                    <a class="btn-link" th:href="@{'/employee/' + ${employee.getEmployee_id()}}">
                                     <span class="text-black-50"
                                           th:text="${employee.getLast_name() + ' ' + employee.getFirst_name()}"></span>
-                                </a>
-                            </li>
-                        </ol>
-                    </li>
-                </ol>
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+                <div class="box">
+                    <h3> Головное подразделение </h3>
+                    <h5 th:if="${department.getDepartment().getHead_department() == null}" th:text="${'Отсутствует'}"></h5>
+                    <a th:href="@{'/department/' + ${department.getDepartment().getHead_department().getDepartment_id()}}"
+                       th:unless="${department.getDepartment().getHead_department() == null}">
+                        <h5 th:text="${department.getDepartment().getHead_department().getName()}"></h5>
+                    </a>
+                </div>
+                <div class="box">
+                    <h3> Суб-подразделения </h3>
+                    <span th:if="${department.getSubDepartments().isEmpty()}" th:text="${'Отсутствуют'}"></span>
+                    <ol class="list-group-horizontal" th:unless="${department.getSubDepartments().isEmpty()}">
+                        <li class="list-group-item" th:each="subDepartment : ${department.getSubDepartments()}">
+                            <a th:href="@{'/department/' + ${subDepartment.getDepartment_id()}}">
+                                <span class="text-black-50" th:text="${subDepartment.getName()}"></span>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
             </div>
-            <div class="box">
-                <h3> Головное подразделение </h3>
-                <h5 th:if="${department.getDepartment().getHead_department() == null}" th:text="${'Отсутствует'}"></h5>
-                <a th:href="@{'/department/' + ${department.getDepartment().getHead_department().getDepartment_id()}}"
-                   th:unless="${department.getDepartment().getHead_department() == null}">
-                    <h5 th:text="${department.getDepartment().getHead_department().getName()}"></h5>
-                </a>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="container align-content-center">
+                    <form class="form-text" th:action="@{/department/delete}" th:method="post">
+                        <fieldset>
+                            <input type="hidden" name="departmentID" th:value="${department.getDepartment().getId()}"/>
+                        </fieldset>
+                        <section class="experience_section">
+                            <div class="detail-box">
+                                <div class="btn-box">
+                                    <input class="btn-1" type="submit" value="Удалить подразделение"/>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
             </div>
-            <div class="box">
-                <h3> Суб-подразделения </h3>
-                <span th:if="${department.getSubDepartments().isEmpty()}" th:text="${'Отсутствуют'}"></span>
-                <ol class="list-group-horizontal" th:unless="${department.getSubDepartments().isEmpty()}">
-                    <li class="list-group-item" th:each="subDepartment : ${department.getSubDepartments()}">
-                        <a th:href="@{'/department/' + ${subDepartment.getDepartment_id()}}">
-                            <span class="text-black-50" th:text="${subDepartment.getName()}"></span>
-                        </a>
-                    </li>
-                </ol>
+
+
+            <div class="container">
+                <form class="form-text" th:action="@{/department/edit}" th:method="post">
+                    <fieldset>
+                        <input type="hidden" name="departmentID" th:value="${department.getDepartment().getId()}"/>
+                        <label>
+                            Название:
+                            <input name="name" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            Описание:
+                            <input name="description" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            ID руководителя:
+                            <input name="directorID" type="number"/>
+                        </label>
+                        <br>
+                        <label>
+                            ID головного подразделения:
+                            <input name="headDepartmentID" type="number"/>
+                        </label>
+                    </fieldset>
+                    <input class="btn-dark" type="submit" value="Внести изменения!"/>
+                </form>
             </div>
+        </div>
+        <div th:if="${isSuccess != null}" class="container-fluid text-body">
+            <section class="text-info">Операция успешна!</section>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <section class="experience_section">
-        <div class="detail-box">
-            <div class="btn-box">
-                <a class="btn-1" th:href="@{/department/add}">Создать подразделение</a>
-            </div>
-        </div>
-    </section>
 </div>
 
 </body>

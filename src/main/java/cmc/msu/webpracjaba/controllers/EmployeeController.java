@@ -213,7 +213,7 @@ public class EmployeeController {
         model.addAttribute("isSuccess", true);
         model.addAttribute("employee", new EmployeeWrapper(newEmployee));
 
-        return "employee";
+        return "redirect:/employee/" + employeeID;
     }
 
     @PostMapping("/employee/delete")

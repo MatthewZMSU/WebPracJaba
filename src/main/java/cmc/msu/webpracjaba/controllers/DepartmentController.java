@@ -1,16 +1,19 @@
 package cmc.msu.webpracjaba.controllers;
 
 import cmc.msu.webpracjaba.DAO.DepartmentDAO;
+import cmc.msu.webpracjaba.DAO.EmployeeDAO;
 import cmc.msu.webpracjaba.DAO.EmployeeInfoDAO;
 import cmc.msu.webpracjaba.models.Department;
 import cmc.msu.webpracjaba.models.Employee;
 import cmc.msu.webpracjaba.models.EmployeeInfo;
+import javassist.tools.reflect.CannotCreateException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -60,6 +63,9 @@ public class DepartmentController {
     @Autowired
     private EmployeeInfoDAO employeeInfoDAO;
 
+    @Autowired
+    private EmployeeDAO employeeDAO;
+
     @GetMapping("/department/{departmentId}")
     public String showDepartment(@PathVariable int departmentId,
                                  Model model) {
@@ -89,6 +95,76 @@ public class DepartmentController {
                 .build();
         List<Department> departments = departmentDAO.searchDepartment(departmentFilter);
         model.addAttribute("departments", departments);
+        return "department_search";
+    }
+
+    @PostMapping("/department/edit")
+    public String editDepartment(
+            @RequestParam() Integer departmentID,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Integer directorID,
+            @RequestParam(required = false) Integer headDepartmentID,
+            Model model
+    ) {
+        model.addAttribute("departmentID", departmentID);
+
+        Employee newDirector = directorID == null ? null : employeeDAO.getById(directorID);
+        if (directorID != null && newDirector == null) throw new IllegalArgumentException("Incorrect director ID!");
+        Department newHeadDepartment = headDepartmentID == null ? null : departmentDAO.getById(headDepartmentID);
+        if (headDepartmentID != null && newHeadDepartment == null) throw new IllegalArgumentException("Incorrect director ID!");
+
+        Department oldDepartment = departmentDAO.getById(departmentID);
+        if (name != null && !name.isEmpty()) oldDepartment.setName(name);
+        if (description != null && !description.isEmpty()) oldDepartment.setDescription(description);
+        if (directorID != null) oldDepartment.setDirector(newDirector);
+        if (headDepartmentID != null) oldDepartment.setHead_department(newHeadDepartment);
+        if (departmentDAO.update(oldDepartment) == null) throw new RuntimeException("Could not update department!");
+
+        return "redirect:/department/" + departmentID;
+    }
+
+    @GetMapping("/department/add")
+    public String addDepartment(Model model) {
+        return "department_add";
+    }
+
+    @PostMapping("/department/add")
+    public String addDepartment(
+            @RequestParam() String name,
+            @RequestParam() String description,
+            @RequestParam() Integer directorID,
+            @RequestParam(required = false) Integer headDepartmentID,
+            Model model
+    ) {
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("Incorrect department name!");
+        if (description == null || description.isEmpty()) throw new IllegalArgumentException("Incorrect description!");
+
+        Employee director = employeeDAO.getById(directorID);
+        if (director == null) throw new IllegalArgumentException("Incorrect director ID!");
+        Department headDepartment = headDepartmentID == null ? null : departmentDAO.getById(headDepartmentID);
+        if (headDepartmentID != null && headDepartment == null) throw new IllegalArgumentException("Incorrect head department ID!");
+
+        Department newDepartment = new Department(
+                0,
+                name,
+                description,
+                director,
+                headDepartment
+        );
+        newDepartment = departmentDAO.save(newDepartment);
+        if (newDepartment == null) throw new RuntimeException("Cannot create new department!");
+
+        model.addAttribute("departmentID", newDepartment.getId());
+        return "department_add";
+    }
+
+    @PostMapping("/department/delete")
+    public String deleteEmployee(
+            @RequestParam(required = false) Integer departmentID,
+            Model model
+    ) {
+        departmentDAO.deleteById(departmentID);
         return "department_search";
     }
 }

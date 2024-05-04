@@ -12,6 +12,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Department implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
