@@ -12,7 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-@TestPropertySource(locations="classpath:application.properties")
+@TestPropertySource(locations="classpath:application-test.properties")
 class HibernateDatabaseConfigTest {
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
