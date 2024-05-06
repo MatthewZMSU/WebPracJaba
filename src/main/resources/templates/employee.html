@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css"/>
+    <title th:text="${'Работник№' + employeeID}"></title>
+</head>
+<body class="sub_page">
+
+<!-- header section starts -->
+<div class="hero_area">
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+                <a class="navbar-brand" th:href="@{/home}">
+                    <span>
+                        CoworkaInfo
+                    </span>
+                </a>
+                <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler" data-target="#navbarSupportedContent"
+                        data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  ">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/home}">Главная<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/employee}">Работники (текущая страница)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/department}">Подразделения</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="custom_menu-btn ">
+                        <button>
+                            <span class="s-1"></span>
+                            <span class="s-2"></span>
+                            <span class="s-3"></span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+</div>
+<!-- header section ends -->
+
+<div class="container">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="col-md-5 offset-md-1 detail-box tab-content tab_container">
+                <div class="box">
+                    <h3> ID </h3>
+                    <h5 th:text="${employee.getEmployee().getId()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Имя </h3>
+                    <h5 th:text="${employee.getEmployee().getFirst_name()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Фамилия </h3>
+                    <h5 th:text="${employee.getEmployee().getLast_name()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Отчество </h3>
+                    <h5 th:text="${employee.getEmployee().getMiddle_name()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Подразделение </h3>
+                    <a th:href="${'/department/' + employee.getDepartment().getDepartment_id()}"
+                       th:if="${employee.getDepartment() != null}">
+                        <h5 th:text="${employee.getDepartmentName()}"></h5>
+                    </a>
+                    <h5 th:if="${employee.getDepartment() == null}" th:text="${'более не работает'}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Должность </h3>
+                    <h5 th:text="${employee.getJob() == null ? 'более не работает' : employee.getJob()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Опыт работы </h3>
+                    <h5 th:text="${#strings.toString(employee.getExperience()) + ' лет'}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Образование </h3>
+                    <h5 th:text="${employee.getEmployee().getEducation()}"></h5>
+                </div>
+                <div class="box">
+                    <h3> Домашний адрес </h3>
+                    <h5 th:text="${employee.getEmployee().getAddress()}"></h5>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="container align-content-center">
+                    <form class="form-text" th:action="@{/employee/delete}" th:method="post">
+                        <fieldset>
+                            <input type="hidden" name="employeeID" th:value="${employee.getEmployee().getId()}"/>
+                        </fieldset>
+                        <section class="experience_section">
+                            <div class="detail-box">
+                                <div class="btn-box">
+                                    <input class="btn-1" type="submit" value="Удалить сотрудника"/>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+            <div class="container">
+                <form class="form-text" th:action="@{/employee/edit}" th:method="post">
+                    <fieldset>
+                        <input type="hidden" name="employeeID" th:value="${employee.getEmployee().getId()}"/>
+                        <label>
+                            Имя:
+                            <input name="firstName" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            Фамилия:
+                            <input name="lastName" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            Отчество:
+                            <input name="middleName" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            Образование:
+                            <input name="education" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            Домашний адрес:
+                            <input name="address" type="text"/>
+                        </label>
+                        <br>
+                        <label>
+                            ID подразделения:
+                            <input name="departmentID" type="number"/>
+                        </label>
+                        <br>
+                        <label>
+                            ID должности:
+                            <input name="jobID" type="number"/>
+                        </label>
+                        <br>
+                    </fieldset>
+                    <input class="btn-dark" type="submit" value="Внести изменения!"/>
+                </form>
+            </div>
+        </div>
+        <div th:if="${isSuccess != null}" class="container-fluid text-body">
+            <section class="text-info">Операция успешна!</section>
+        </div>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+</html>

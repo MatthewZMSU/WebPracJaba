@@ -29,8 +29,8 @@ public class DepartmentDAOImpl extends CommonDAOImpl<Department, Integer> implem
             if (filter.getName() != null) {
                 predicates.add(builder.equal(root.get("name"), filter.getName()));
             }
-            if (filter.getDirector() != null) {
-                predicates.add(builder.equal(root.get("director").get("employee_id"), filter.getDirector()));
+            if (filter.getDirectorLastName() != null) {
+                predicates.add(builder.equal(root.get("director").get("last_name"), filter.getDirectorLastName()));
             }
 
             if (!predicates.isEmpty()) {

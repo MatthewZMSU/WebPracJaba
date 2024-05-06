@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" type="text/css"/>
+    <title>Поиск подразделений</title>
+</head>
+
+<body class="sub_page">
+
+<!-- header section starts -->
+<div class="hero_area">
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+                <a class="navbar-brand" th:href="@{/home}">
+                    <span>
+                        CoworkaInfo
+                    </span>
+                </a>
+                <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                        class="navbar-toggler" data-target="#navbarSupportedContent"
+                        data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  ">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/home}">Главная<span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/employee}">Работники</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/department}">Подразделения (текущая страница)</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="custom_menu-btn ">
+                        <button>
+                            <span class=" s-1"></span>
+                            <span class="s-2"></span>
+                            <span class="s-3"></span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+</div>
+<!-- header section ends -->
+
+<div class="container">
+    <div class="row">
+        <div class="container align-content-center">
+            <section class="experience_section">
+                <div class="detail-box">
+                    <div class="btn-box">
+                        <a class="btn-1" th:href="@{/department/add}">Добавить подразделение</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="container">
+            <form class="form-text" th:action="@{/department/search}" th:method="get">
+                <fieldset>
+                    <label>
+                        Название подразделения:
+                        <input name="departmentName" type="text"/>
+                    </label>
+                    <br>
+                    <label>
+                        Фамилия руководителя:
+                        <input name="directorLastName" type="text"/>
+                    </label>
+                </fieldset>
+                <input class="btn-dark" type="submit" value="Поиск!"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container table-tab">
+    <div class="text-body" th:if="${departments == null}">
+        <p class="text-center">Введите параметры поиска</p>
+    </div>
+    <table class="table-bordered" th:unless="${departments == null}">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Название подразделения</th>
+            <th scope="col">Фамилия руководителя</th>
+            <th scope="col">Имя руководителя</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${departments.isEmpty()}">
+            <td class="text-center" colspan="7">Подразделения не найдены.</td>
+        </tr>
+        <tr th:each="department : ${departments}">
+            <td>
+                <a th:href="@{'/department/' + ${department.getId()}}">
+                    <span th:text="${department.getId()}"></span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${department.getName()}"></span>
+            </td>
+            <td>
+                <a th:href="@{'/employee/' + ${department.getDirector().getId()}}">
+                    <span th:text="${department.getDirector().getLast_name()}"></span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${department.getDirector().getFirst_name()}"> </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+<script th:src="@{js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{js/bootstrap.js}"></script>
+<script th:src="@{js/custom.js}"></script>
+</html>

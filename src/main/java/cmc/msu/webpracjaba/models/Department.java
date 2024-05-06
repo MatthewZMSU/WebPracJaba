@@ -12,6 +12,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Department implements Common<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +28,12 @@ public class Department implements Common<Integer> {
     @Nullable
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "director", nullable = false)
     @NonNull
     private Employee director;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "head_department", nullable = true)
     @Nullable
     private Department head_department;

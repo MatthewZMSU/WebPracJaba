@@ -1,3 +1,6 @@
+CREATE DATABASE testdatabase;
+\connect testdatabase
+
 DROP TABLE IF EXISTS Employee CASCADE;
 CREATE TABLE Employee(
     employee_id SERIAL PRIMARY KEY,
